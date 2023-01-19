@@ -2871,9 +2871,14 @@ public class DefaultDockerClient implements DockerClient, Closeable {
       return "null";
     }
     try {
+      return java.util.Base64.getUrlEncoder().encodeToString(ObjectMapperProvider
+                                       .objectMapper()
+                                       .writeValueAsBytes(registryAuth));
+      /** original code
       return Base64.encodeBase64String(ObjectMapperProvider
                                        .objectMapper()
                                        .writeValueAsBytes(registryAuth));
+                                       **/
     } catch (JsonProcessingException ex) {
       throw new DockerException("Could not encode X-Registry-Auth header", ex);
     }
